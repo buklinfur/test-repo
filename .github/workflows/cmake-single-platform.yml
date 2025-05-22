@@ -2,9 +2,9 @@ name: CMake on a single platform
 
 on:
   push:
-    branches: [ "slave","master" ]
+    branches: [ "cod","master" ]
   pull_request:
-    branches: [ "slave" ]
+    branches: [ "cod" ]
 
 env:
   BUILD_TYPE: Debug
