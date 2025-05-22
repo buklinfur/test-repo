@@ -2,6 +2,8 @@
 #include <functional>
 #include <iostream>
 
+#include <candle.h>
+
 #include "tests.h"
 
 //массив всех тестов, который мы заполняем в функции initTests
@@ -68,5 +70,8 @@ int launchTests()
 int main()
 {
   initTests();
+
+  // run_gtests();
+
   return launchTests();
 }
