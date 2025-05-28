@@ -16,17 +16,26 @@ jobs:
         os: [windows-latest, ubuntu-latest]
         include:
           - os: windows-latest
-            compiler: g++-11.2.0
+            compiler: gcc
+            version: "11.2.0"
           - os: ubuntu-latest
-            compiler: gcc-13
+            compiler: gcc
+            version: "13"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install compiler
-        uses: rlalik/setup-cpp-compiler@v1.0.0
-        with:
-          compiler: ${{ matrix.compiler }}
+      # Install compilers using native package managers
+      - name: Install dependencies (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++-${{ matrix.version }}
+
+      - name: Install dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install mingw --version=${{ matrix.version }} -y
 
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build
